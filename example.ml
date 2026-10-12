@@ -53,10 +53,10 @@ let rec nth_error l n =
     n
 
 (** val floyd_loop :
-    ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> int -> 'a1 -> 'a1 -> bool
-    option **)
+    ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> int -> 'a1 -> 'a1 ->
+    bool option **)
 
-let[@zero_alloc] rec floyd_loop eq_dec0 next fuel s f =
+let rec floyd_loop eq_dec0 next fuel s f =
   (fun fO fS n -> if n=0 then fO () else fS (n-1))
     (fun _ -> None)
     (fun fuel0 ->
@@ -75,7 +75,8 @@ let[@zero_alloc] rec floyd_loop eq_dec0 next fuel s f =
     fuel
 
 (** val floyd :
-    ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> 'a1 -> int -> bool option **)
+    ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> 'a1 -> int -> bool
+    option **)
 
 let floyd eq_dec0 next x0 fuel =
   floyd_loop eq_dec0 next fuel x0 x0
@@ -89,7 +90,7 @@ let next_of arr i =
 
 (** val floyd_array : int option list -> bool **)
 
-let[@zero_alloc] floyd_array arr =
+let floyd_array arr =
   match floyd Nat.eq_dec (next_of arr) 0 (succ (length arr)) with
   | Some b -> b
   | None -> False

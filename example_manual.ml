@@ -42,16 +42,7 @@ module Nat =
 
 (** val nth_error : 'a1 list -> int -> 'a1 option **)
 
-(* let[@zero_alloc] rec nth_error l n =  
-  (fun fO fS n -> if n=0 then fO () else fS (n-1))
-    (fun _ -> match l with
-              | Nil ->  None
-              | Cons (x, _) ->  (Some x))
-    (fun n0 -> match l with
-               | Nil -> None
-               | Cons (_, l0) -> (nth_error l0 n0))
-    n *)
-let[@zero_alloc] rec nth_error l n = exclave_
+let rec nth_error l n = exclave_
   match l with
   | Nil -> None
   | Cons (x, l0) ->
@@ -59,10 +50,10 @@ let[@zero_alloc] rec nth_error l n = exclave_
       else (nth_error l0 (n - 1))
 
 (** val floyd_loop :
-    ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> int -> 'a1 -> 'a1 -> bool
-    option **)
+    ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> int -> 'a1 -> 'a1 ->
+    bool option **)
 
-let rec floyd_loop eq_dec0 (next: int -> int option @ local) fuel (s: int) (f: int) =
+let rec floyd_loop eq_dec0 (next: int -> int option @ local) fuel s f =
   if fuel = 0 then None else 
     match next f with
     | Some f1 ->
@@ -78,21 +69,22 @@ let rec floyd_loop eq_dec0 (next: int -> int option @ local) fuel (s: int) (f: i
     | None -> Some False
 
 (** val floyd :
-    ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> 'a1 -> int -> bool option **)
+    ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> 'a1 -> int -> bool
+    option **)
 
-let floyd eq_dec0 (next: int -> int option @ local) (x0: int) (fuel: int) =
+let floyd eq_dec0 next x0 fuel =
   floyd_loop eq_dec0 next fuel x0 x0
 
 (** val next_of : int option list -> int -> int option **)
 
-let[@zero_alloc] next_of arr i = exclave_
+let next_of arr i = exclave_
   match nth_error arr i with
   | Some o -> o
   | None -> None
 
 (** val floyd_array : int option list -> bool **)
 
-let[@zero_alloc] floyd_array (arr @ local) =
+let[@zero_alloc] floyd_array arr =
   match floyd Nat.eq_dec (next_of arr) 0 (succ (length arr)) with
   | Some b -> b
   | None -> False
