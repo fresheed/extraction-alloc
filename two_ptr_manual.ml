@@ -42,7 +42,7 @@ module Nat =
 
 (** val nth_error : 'a1 list -> int -> 'a1 option **)
 
-let rec nth_error l n = exclave_
+let rec nth_error l n =
   match l with
   | Nil -> None
   | Cons (x, l0) ->
@@ -53,7 +53,7 @@ let rec nth_error l n = exclave_
     ('a1 -> 'a1 -> sumbool) -> ('a1 -> 'a1 option) -> int -> 'a1 -> 'a1 ->
     bool option **)
 
-let rec floyd_loop eq_dec0 (next: int -> int option @ local) fuel s f =
+let rec floyd_loop eq_dec0 next fuel s f =
   if fuel = 0 then None else 
     match next f with
     | Some f1 ->
@@ -77,7 +77,7 @@ let floyd eq_dec0 next x0 fuel =
 
 (** val next_of : int option list -> int -> int option **)
 
-let next_of arr i = exclave_
+let next_of arr i = 
   match nth_error arr i with
   | Some o -> o
   | None -> None
