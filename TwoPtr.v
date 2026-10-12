@@ -432,5 +432,5 @@ Proof. reflexivity. Qed.
 
 Extraction Language OCaml.
 Extract Inductive nat => int [ "0" "succ" ] "(fun fO fS n -> if n=0 then fO () else fS (n-1))".
-Extraction "example.ml" floyd_array.
+Extraction "two_ptr.ml" floyd_array.
 
