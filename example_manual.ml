@@ -92,13 +92,7 @@ let[@zero_alloc] next_of arr i = exclave_
 
 (** val floyd_array : int option list -> bool **)
 
-let floyd_array (arr @ local) =
+let[@zero_alloc] floyd_array (arr @ local) =
   match floyd Nat.eq_dec (next_of arr) 0 (succ (length arr)) with
   | Some b -> b
   | None -> False
-
-(* let[@zero_alloc] test_fun arr =
-  let x: int option  = next_of arr 0 in
-  match x with
-  | Some x -> ()
-  | None -> () *)
