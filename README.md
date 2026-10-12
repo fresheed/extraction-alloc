@@ -14,6 +14,6 @@ To reproduce it in Docker, execute the following. Note that there are two opam s
   opam exec --switch=oxcaml -- ocamlopt -O2 two_ptr_manual.ml # compiles manually adjusted OCaml code
 ```
 
-Adding `@zero_alloc` to  `floyd_array` in generated `two_ptr.ml` and running `opam exec --switch=oxcaml -- ocamlopt -O2 two_ptr.ml` will fail.
+Adding `@zero_alloc` to  `floyd_array` in generated `two_ptr.ml` and running `opam exec --switch=oxcaml -- ocamlopt -O2 two_ptr.mli two_ptr.ml` will fail.
 
 To see the exact changes introduced manually, run `git diff --no-index two_ptr.ml two_ptr_manual.ml` in the container. 

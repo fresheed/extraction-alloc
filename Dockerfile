@@ -1,6 +1,6 @@
 # Two opam switches:
 #   rocq   - Coq/Rocq 8.20.0, checks TwoPtr.v and extracts two_ptr.ml
-#   oxcaml - OxCaml compiler, compiles two_ptr_manual.ml with -O3
+#   oxcaml - OxCaml compiler, compiles two_ptr_manual.ml with -O2
 FROM ocaml/opam:ubuntu-22.04-ocaml-5.1
 
 # System packages needed to build the OxCaml compiler
