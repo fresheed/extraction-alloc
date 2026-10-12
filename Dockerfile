@@ -32,6 +32,6 @@ RUN opam exec --switch=rocq -- coqc TwoPtr.v \
  && test -f two_ptr.ml
 
 # Compile the hand-modified version with OxCaml
-RUN opam exec --switch=oxcaml -- ocamlopt -O3 two_ptr_manual.ml
+RUN opam exec --switch=oxcaml -- ocamlopt -O2 two_ptr_manual.ml
 
 CMD ["bash"]
